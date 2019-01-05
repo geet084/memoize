@@ -18,7 +18,7 @@ describe('App', () => {
     ReactDOM.unmountComponentAtNode(div);
   })
 
-  it('should match the snapshot with all data passed correctly to......', () => {
+  it('should match the snapshot with all data passed correctly to Display', () => {
     expect(wrapper).toMatchSnapshot();
   })
 
