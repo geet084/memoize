@@ -23,6 +23,9 @@ export default class Display extends Component {
     })
   }
 
+  checkAnswer = (event) => {
+    console.log(event.target.innerText)
+  }
   
   render() {
     let { prototypes, selection } = this.props;
@@ -32,7 +35,8 @@ export default class Display extends Component {
       return (
         <section>
           <p>PROTOTYPES SELECTED</p>
-          <Card deets={this.props} />
+          <Card deets={this.props}
+                checkAnswer={this.checkAnswer}/>
         </section>
       )
     } else {
