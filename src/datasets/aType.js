@@ -94,19 +94,4 @@ const aTypes = [
   }
 ];
 
-const sTypes = [
-  {
-    "concat": "This method is used to merge two or more arrays. This method also does not change the existing arrays, but instead returns a new array."
-  },
-  {
-    "values": "This method returns a new Array Iterator object that contains the values for each index in the array."
-  }
-];
-
-const all = sTypes.concat(aTypes);
-
-module.exports = {
-  all,
-  aTypes,
-  sTypes
-};
+module.exports = { aTypes }
