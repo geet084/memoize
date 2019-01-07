@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './CSS/Main.scss';
+import Answer from './Answer.js'
 
 export default class Card extends Component {
   constructor(props) {
@@ -9,16 +10,13 @@ export default class Card extends Component {
       count: 0,
       question: null,
       answeredCorrectly: null,
-      newStart: true
+      nextQuestion: false
     }
   }
 
-  componentDidMount = () => {
+  nextQuestion = () => {
+    this.setState({ nextQuestion: true, count: 0 })
     this.showQuestion();
-  }
-  
-  begin = () => {
-    this.setState({newStart: false})
   }
 
   getRandomNumber = (max) => {
@@ -26,100 +24,67 @@ export default class Card extends Component {
   }
 
   showQuestion = () => {
-    let { prototypes, selection } = this.props.deets;
-    let category = prototypes[selection];
-    let randomIndex = this.getRandomNumber(category.length)
-
-    let rightAnswer = this.buildCard('keys', category, randomIndex).shift()
-    let definition = this.buildCard('values', category, randomIndex).shift()
-    // let wrongAnswers = this.generateWrongAnswers(category, randomIndex)
-
-    this.setState({ question: {question: definition, answer: rightAnswer} });
-    // this.setState({ question: [definition, [rightAnswer, ...wrongAnswers].sort()] });
-  }
-
-  buildCard = (type, category, index) => {
-    if (type === 'keys') {
-      return Object.keys(category[index])
-    } else if (type === 'values') {
-      return Object.values(category[index])
-    }
-  }
-
-  // generateWrongAnswers = (category, random) => {
-  //   let i = 0
-  //   let arr = []
- 
-  //   while (i < 3) {
-  //     let j = this.getRandomNumber(category.length);
-  //     if (j !== random) {
-  //       arr.push(Object.keys(category[j]).shift());
-  //       i++;
-  //     } 
-  //   };
-
-  //   return arr;
-  // }
-  
-  // checkAnswer = (event) => {
-  //   let guess = event.target.innerText;
-  //   let correct = false;
+    let { questions } = this.props
     
-  //   if (guess === this.state.question[1][0]) correct = true;
-  //   this.props.answer(correct, this.state.question)
-  //   this.setState({
-  //     count: this.state.count + 1,
-  //     answeredCorrectly: correct
-  //   })
-  //   this.showQuestion();
-  // }
+    let randomIndex = this.getRandomNumber(questions.length)
+    
+    let rightAnswer = this.createCard('keys', questions, randomIndex)
+    let definition = this.createCard('values', questions, randomIndex)
 
-  checkAnswer = (e) => {
-    let guess = e.target.innerText.toLowerCase();
-    let { rightAnswer } = this.state.question.answer;
-    let correct = false;
+    this.setState({
+      question: { question: definition, answer: rightAnswer }
+    });
+  }
 
-    if (guess === rightAnswer.toLowerCase()) {
-      correct = true;
+  createCard = (type, singleQuestion, index) => {
+    if (type === 'keys') {
+      return Object.keys(singleQuestion[index]).shift()
+    } else if (type === 'values') {
+      return Object.values(singleQuestion[index]).shift()
     }
+  }
+
+  checkAnswer = (guess) => {
+    let { answer } = this.state.question;
+
+    if (guess.toLowerCase() === answer.toLowerCase()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  processGuess = (e) => {
+    let correct = this.checkAnswer(e.target.previousSibling.value);
 
     this.props.answer(correct, this.state.question)
     this.setState({
       count: this.state.count + 1,
       answeredCorrectly: correct
     })
-    this.showQuestion();
+    e.target.previousSibling.value = '';
   }
-  
-  render() {
-    // let { index, searchFound } = this.props;  
-    // let { prototypes } = this.props.deets;
-    // let { all } = this.props.deets.prototypes;
-    // <p>{this.buildCard('keys', all, index).shift() + '()'}</p>
-    // <p>{this.buildCard('values', all, index).shift()}</p>
 
-   if (this.state.newStart) {
+  render() {
+    if (!this.state.nextQuestion) {
       return (
         <div>
-          <h4 onClick={this.begin}>Click to begin</h4>
+          <h4 onClick={this.nextQuestion}>Click to begin</h4>
         </div>
       )
-   } else {
-     let { question, answer } = this.state.question;
-     console.log(this.state.question)
+     } else {
+      let { question, answer } = this.state.question;
+      let { count, answeredCorrectly } = this.state;
       return (
         <div>
-          <p>Questions answered so far: {this.state.count}</p>
-          <p>{question} //{answer}</p>
-          {/* <ul>
-            {
-              answers.map((answer, index) => {
-                return <li onClick={this.checkAnswer}
-                           key={index}>{answer}</li>
-              })
-            }
-          </ul> */}
-          <input type="text" onClick={this.checkAnswer}/>
+          <p>Number of guesses so far: {count}</p>
+          <p>{question} ......{answer}.....</p>
+          <input type="text" />
+          <button onClick={this.processGuess}>
+            Click to check answer
+          </button>
+          <Answer nextQuestion={this.nextQuestion}
+                  answer={answeredCorrectly} />
         </div>
       )
     }
