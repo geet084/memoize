@@ -23,8 +23,8 @@ export default class Display extends Component {
     })
   }
 
-  checkAnswer = (event) => {
-    console.log(event.target.innerText)
+  checkAnswer = (guess) => {
+    console.log(guess)
   }
   
   render() {
