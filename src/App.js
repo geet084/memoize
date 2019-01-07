@@ -10,7 +10,8 @@ class App extends Component {
 
     this.state = {
       prototypes: prototypes,
-      selection: 'all'
+      selection: 'all',
+      answered: []
     }
   }
 
@@ -23,6 +24,13 @@ class App extends Component {
     }
   }
 
+  answer = (guess, question) => {
+    console.log(this.state.answered)
+    let modArr = this.state.answered
+    modArr.push({ guess: guess, question: question[0] })
+    this.setState({ answered: modArr })
+  }
+
   render() {
     let { prototypes, selection } = this.state;
     return (
@@ -31,9 +39,9 @@ class App extends Component {
         <Nav prototypes={prototypes}
              showCard={this.showCard}
              updateSelection={this.updateType} />
-        {/* <Display prototypes={prototypes[selection]} /> */}
         <Display prototypes={prototypes}
-                 selection={selection} />
+                 selection={selection}
+                 answer={this.answer}/>
       </main>
     );
   }
