@@ -18,7 +18,8 @@ export default class Answer extends Component {
       return (
         <div>
           <p>{message}</p>
-          <button onClick={nextQuestion}>
+          <button onClick={nextQuestion}
+                  className="next-question">
             Click for next Question</button>
         </div>
       )
