@@ -9,55 +9,51 @@ export default class Card extends Component {
     this.state = {
       count: 0,
       question: null,
-      answer: null,
       answeredCorrectly: null,
-      nextQuestion: false
+      showNextQuestion: false
     }
   }
 
   nextQuestion = () => {
     let { question, answeredCorrectly } = this.state;
-    this.setState({ nextQuestion: true, count: 0 })
+    this.setState({
+      showNextQuestion: true,
+      count: 0,
+      answeredCorrectly: null
+    })
     
     if (question !== null) {
-      this.props.answer(question, answeredCorrectly)
+      this.props.currentAnswer(question, answeredCorrectly)
     }
     this.showQuestion();
-  }
-
-  getRandomNumber = (max) => {
-    return Math.floor(Math.random() * max)
   }
 
   showQuestion = () => {
     let { questions } = this.props
     
     let randomIndex = this.getRandomNumber(questions.length)
-    
-    let rightAnswer = this.createCard('keys', questions, randomIndex)
-    let definition = this.createCard('values', questions, randomIndex)
+    let rightAnswer = this.findQuestion('keys', randomIndex)
+    let definition = this.findQuestion('values', randomIndex)
 
     this.setState({
-      question: { question: definition, answer: rightAnswer }
+      question: { definition: definition, answer: rightAnswer }
     });
   }
 
-  createCard = (type, singleQuestion, index) => {
-    if (type === 'keys') {
-      return Object.keys(singleQuestion[index]).shift()
-    } else if (type === 'values') {
-      return Object.values(singleQuestion[index]).shift()
-    }
+  getRandomNumber = (max) => {
+    return Math.floor(Math.random() * max)
+  }
+
+  findQuestion = (type, index) => {
+    return Object[type](this.props.questions[index]).shift()
   }
 
   checkAnswer = (guess) => {
     let { answer } = this.state.question;
+    let guessIsCorrect = guess.toLowerCase() === answer.toLowerCase()
 
-    if (guess.toLowerCase() === answer.toLowerCase()) {
-      return true;
-    } else {
-      return false;
-    }
+    if (guessIsCorrect) return true;
+    else return false;
   }
 
   processGuess = (e) => {
@@ -70,36 +66,64 @@ export default class Card extends Component {
     e.target.previousSibling.value = '';
   }
 
-  seeHistory = (question) => {
+  showPrevResult = (question) => {
     let matchedAnswer;
-    this.props.answered.forEach(answer => {
-      if (answer.guess.question === question) {
+    this.props.answeredQuestions.forEach(answer => {
+      if (answer.guess.definition === question) {
         matchedAnswer = answer.question;
       }
     })
 
-    if (matchedAnswer) return 'yes!';
-    else return 'no...';
+    if (matchedAnswer === undefined) return 'undefined';
+    else if (matchedAnswer) return 'correct!'
+    else return 'incorrect...';
+  }
+
+  showBtnText = () => {
+    if (this.state.count > 0) {
+      return 'Click to try again';
+    } else {
+      return 'Click to check answer';
+    }
   }
 
   render() {
-    if (!this.state.nextQuestion) {
+    if (!this.state.showNextQuestion) {
       return (
         <div>
-          <h4 onClick={this.nextQuestion}>Click to begin</h4>
+          <h4 onClick={this.nextQuestion}
+            className="begin">Click to begin</h4>
+          <p className="intro">Welcome to Study Time, a web-based flashcard app to practice how well you know your Javascript Array Prototypes! </p>
         </div>
       )
     } else {
-      let { question, answer } = this.state.question;
+      let { definition, answer } = this.state.question;
       let { count, answeredCorrectly } = this.state;
+      
+      let result = this.showPrevResult(definition).includes('incorrect');
+      let showPrevious = this.showPrevResult(definition).includes('undefined');
+      let isCorrect, previous;
+      result ? isCorrect = 'no' : isCorrect = 'yes';
+      showPrevious ? previous = 'undefined' : previous = 'show-previous';
+
       return (
-        <div>
-          <p>Number of guesses so far: {count}</p>
-          <p>{question} ......{answer}.....</p>
-          <p>Answered correctly before: {this.seeHistory(question)}</p>
-          <input type="text" />
-          <button onClick={this.processGuess}>
-            Click to check answer
+        <div className="card">
+          <p className="num-guess">
+            Number of guesses so far:
+            <span className="count">  {count}</span>
+          </p>
+          <p className="definition">
+            {definition} ......{answer}.....
+          </p>
+          <p className={previous}>
+            Previous result for this question was: <span className={isCorrect}>{this.showPrevResult(definition)}</span>
+          </p>
+          <input type="text" className="user-input"
+            placeholder="ENTER YOUR ANSWER HERE"
+            onFocus={(e) => e.target.placeholder = ""}
+            onBlur={(e) => e.target.placeholder = "ENTER YOUR ANSWER HERE"} />
+          <button onClick={this.processGuess}
+                  className="user-btn">{this.showBtnText()}
           </button>
           <Answer nextQuestion={this.nextQuestion}
                   answer={answeredCorrectly}
