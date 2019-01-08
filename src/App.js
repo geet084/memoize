@@ -9,7 +9,7 @@ class App extends Component {
 
     this.state = {
       prototypes: null, 
-      answered: [],
+      answeredQuestions: [],
       isLoading: true
     }
   }
@@ -21,7 +21,7 @@ class App extends Component {
         setTimeout(() => {
           this.setState({
             prototypes: data.aTypes,
-            answered: this.getFromStorage(),
+            answeredQuestions: this.getFromStorage(),
             isLoading: false
           })
         }, 200);
@@ -37,27 +37,27 @@ class App extends Component {
     }
   }
 
-  answer = (guess, question) => {
-    let modArr = this.state.answered
+  updateAnsweredQuestions = (guess, question) => {
+    let modArr = this.state.answeredQuestions
     modArr.push({ guess: guess, question: question })
-    this.setState({ answered: modArr })
+    this.setState({ answeredQuestions: modArr })
     localStorage.setItem('data', JSON.stringify(modArr))
   }
 
   tallyScore = () => { 
-    let { answered } = this.state;
+    let { answeredQuestions } = this.state;
 
-    if (answered.length === 0) {
+    if (answeredQuestions.length === 0) {
       return 0;
     } else {
-      return answered.filter(answer => {
+      return answeredQuestions.filter(answer => {
         return answer.question
       }).length
     }
   }
 
   reset = () => {
-    this.setState({ answered: [] })
+    this.setState({ answeredQuestions: [] })
     localStorage.removeItem('data');
   }
 
@@ -69,14 +69,15 @@ class App extends Component {
         <div>Loading</div>
       );
     } else {
+      let { answeredQuestions } = this.state;
       return (
         <main className="App">
-          <h1>Welcome ....</h1>
+          <h1 className="header">Welcome to Study Time</h1>
           <Nav theScore={this.tallyScore()}
                reset={this.reset} />
           <Display prototypes={prototypes}
-                   answer={this.answer}
-                   answered={this.state.answered} />
+                   currentAnswer={this.updateAnsweredQuestions}
+                   answeredQuestions={answeredQuestions} />
         </main>
       );
     }
