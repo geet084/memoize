@@ -4,23 +4,23 @@ import './CSS/Main.scss';
 export default class Answer extends Component {
   
   render() {
-    let { answer, nextQuestion } = this.props;
-    let message = 'YOUR ANSWER IS'
+    let { answer, count, nextQuestion } = this.props;
+    let message = '';
     let questionAnswered = answer || answer === false;
       
-    if (answer) {
-      message += ' --CORRECT--!';
-    } else if (answer === false) {
-      message += ' --INCORRECT--!';
+    if (answer && count > 0) {
+      message = 'YOUR ANSWER IS --CORRECT--!';
+    } else if (answer === false && count > 0) {
+      message = 'YOUR ANSWER IS --INCORRECT--!';
     }
 
     if (questionAnswered) {
       return (
         <div>
-          <p>{message}</p>
           <button onClick={nextQuestion}
                   className="next-question">
-            Click for next Question</button>
+            Click to Submit answer and change to next Question</button>
+          <p>{message}</p>
         </div>
       )
     } else {
