@@ -1,3 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Nav should match the snapshot with all data passed in correctly 1`] = `undefined`;
+exports[`Nav should match the snapshot with all data passed in correctly 1`] = `
+<nav
+  className="nav"
+>
+  <ul
+    className="types"
+  >
+    <li
+      className="aTypes"
+    >
+      Practice Array Prototypes
+    </li>
+  </ul>
+  <ul
+    className="user"
+  >
+    <li>
+      Total correct: 
+      <Component />
+    </li>
+    <li
+      className="reset-btn"
+      onClick={[MockFunction]}
+    >
+      Reset
+    </li>
+  </ul>
+</nav>
+`;
