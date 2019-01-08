@@ -1,0 +1,68 @@
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.count {
+  color: #00AEFF;
+}
+
+.definition {
+  width: 75%;
+  height: 110px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.num-guess {
+  width: 40%;
+  color: #fff;
+  background-color: #016FB9;
+  margin: 20px 5px 5px 5px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.show-previous {
+  width: 40%;
+  margin: 5px;
+  padding: 10px;
+  color: #fff;
+  background-color: #016FB9;
+  border-radius: 15px;
+}
+.undefined {
+  display: none;
+}
+
+.yes {
+  color: lightgreen;
+}
+
+.no {
+  color: maroon;
+}
+
+.user-btn {
+  width: 290px;
+  height: 35px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #00AEFF;
+}
+
+.user-input {
+  width: 285px;
+  height: 30px;
+  margin: 10px;
+  padding: 2px 2px 2px 5px;
+  font-size: 1.25rem;
+  background-color: #00AEFF;
+  &::placeholder {
+    color:white;
+  }
+}
+
