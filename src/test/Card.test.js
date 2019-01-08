@@ -1,22 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../App';
+import Card from '../Card.js';
 import { shallow } from 'enzyme';
 
-describe('App', () => {
+describe('Card', () => {
   let wrapper;
 
   // beforeEach(() => {
   //   wrapper = shallow(
-  //     <App />
+  //     <Card />
   //   )
   // })
-
-  it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
-    ReactDOM.unmountComponentAtNode(div);
-  })
 
   it('should match the snapshot with all data passed in correctly', () => {
     expect(wrapper).toMatchSnapshot();

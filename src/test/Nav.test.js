@@ -1,22 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../App';
+import Nav from '../Nav.js';
 import { shallow } from 'enzyme';
 
-describe('App', () => {
+describe('Nav', () => {
   let wrapper;
 
   // beforeEach(() => {
   //   wrapper = shallow(
-  //     <App />
+  //     <Nav />
   //   )
   // })
-
-  it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
-    ReactDOM.unmountComponentAtNode(div);
-  })
 
   it('should match the snapshot with all data passed in correctly', () => {
     expect(wrapper).toMatchSnapshot();

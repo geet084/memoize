@@ -15,7 +15,7 @@ export default class Display extends Component {
     return (
       <section>
         <Card questions={this.props.prototypes}
-          answer={this.props.answer} />
+              answer={this.props.answer} />
       </section>
     )
   }
