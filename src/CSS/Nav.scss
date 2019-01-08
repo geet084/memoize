@@ -1,7 +1,7 @@
 .nav {
-  height: 100px;
   width: 100%;
-  background-color: grey;
+  background-color: #182825;
+  color: white;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -10,8 +10,21 @@
 ul {
   list-style-type: none;
   display: flex;
+  margin: 0;
 }
 
 li {
   margin: 30px;
+  padding: 5px 20px;
+}
+
+.reset-btn {
+  background-color: #2D4C46;
+  border-radius: 10px;
+
+  &:hover {
+    color:#182825;
+    background-color: #00AEFF;
+    cursor: pointer;
+  }
 }
