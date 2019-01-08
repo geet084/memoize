@@ -70,18 +70,16 @@ export default class Card extends Component {
     e.target.previousSibling.value = '';
   }
 
-  seeHistory = (a) => {
-    let right = a;
-    let stuff;
+  seeHistory = (question) => {
+    let matchedAnswer;
     this.props.answered.forEach(answer => {
-      if (answer.guess.question === a) stuff = answer.question;
+      if (answer.guess.question === question) {
+        matchedAnswer = answer.question;
+      }
     })
 
-    if (stuff) {
-      return 'yes!';
-    } else {
-      return 'no...'
-    }
+    if (matchedAnswer) return 'yes!';
+    else return 'no...';
   }
 
   render() {
