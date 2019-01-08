@@ -12,11 +12,11 @@ export default class Display extends Component {
   }
 
   render() {
-      return (
-        <section>
-          <Card questions={this.props.prototypes.aTypes}
-            answer={this.props.answer} />
-        </section>
-      )
+    return (
+      <section>
+        <Card questions={this.props.prototypes}
+          answer={this.props.answer} />
+      </section>
+    )
   }
 }
