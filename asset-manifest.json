@@ -1,14 +1,13 @@
 {
-  "main.css": "/memoize/static/css/main.d804b201.chunk.css",
-  "main.js": "/memoize/static/js/main.16a49e9d.chunk.js",
-  "main.js.map": "/memoize/static/js/main.16a49e9d.chunk.js.map",
-  "static/js/1.4a34e45d.chunk.js": "/memoize/static/js/1.4a34e45d.chunk.js",
-  "static/js/1.4a34e45d.chunk.js.map": "/memoize/static/js/1.4a34e45d.chunk.js.map",
+  "main.css": "/memoize/static/css/main.d9d414dd.chunk.css",
+  "main.js": "/memoize/static/js/main.9b6fa97a.chunk.js",
+  "main.js.map": "/memoize/static/js/main.9b6fa97a.chunk.js.map",
+  "static/js/1.35d49673.chunk.js": "/memoize/static/js/1.35d49673.chunk.js",
+  "static/js/1.35d49673.chunk.js.map": "/memoize/static/js/1.35d49673.chunk.js.map",
   "runtime~main.js": "/memoize/static/js/runtime~main.1a418a8c.js",
   "runtime~main.js.map": "/memoize/static/js/runtime~main.1a418a8c.js.map",
-  "static/media/logo.svg": "/memoize/static/media/logo.5d5d9eef.svg",
-  "static/css/main.d804b201.chunk.css.map": "/memoize/static/css/main.d804b201.chunk.css.map",
+  "static/css/main.d9d414dd.chunk.css.map": "/memoize/static/css/main.d9d414dd.chunk.css.map",
   "index.html": "/memoize/index.html",
-  "precache-manifest.ce55a83bd9c5abdbd57f1e4245eaa7bb.js": "/memoize/precache-manifest.ce55a83bd9c5abdbd57f1e4245eaa7bb.js",
+  "precache-manifest.a67a66a9708cafc36408f3cfa2fd8f8c.js": "/memoize/precache-manifest.a67a66a9708cafc36408f3cfa2fd8f8c.js",
   "service-worker.js": "/memoize/service-worker.js"
 }
