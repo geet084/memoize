@@ -1,0 +1,23 @@
+.display {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.intro {
+  color: #2D4C46;
+  width: 450px;
+  text-align: center;
+}
+
+.begin {
+  padding: 15px 0;
+  width: 425px;
+  margin-left: 12px;
+
+  &:hover{
+    background-color: #182825;
+    color: #00AEFF;
+    border-radius: 15px;
+  }
+}
