@@ -1,6 +1,17 @@
+$bgc: #6D8EA0;
+body {
+  background-color: $bgc;
+
+}
 .App {
-  // text-align: center;
-  // background-color: lightblue;
-  // height: 200px;
-  // font-size: 2rem;
+  text-align: center;
+  height: 100vh;
+  font-size: 1.5rem;
+}
+
+.header {
+  color: #016FB9;
+  background-color: #AFA98D;
+  margin: 0;
+  padding: 20px 35px 20px 35px;
 }
