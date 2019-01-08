@@ -4,14 +4,16 @@ import './CSS/Main.scss';
 export default class Nav extends Component {
 
   render() {
+    let { theScore } = this.props;
+ 
     return (
       <nav className="nav">
         <ul className="types">
           <li className="aTypes">Practice Array Prototypes</li>
         </ul>
         <ul className="user">
-          <li>Your Score</li>
-          <li>Reset</li>
+          <li>Total correct: {theScore}</li>
+          <li onClick={this.props.reset}>Reset</li>
         </ul>
       </nav>
     );
