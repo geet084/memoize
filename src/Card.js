@@ -15,7 +15,12 @@ export default class Card extends Component {
   }
 
   nextQuestion = () => {
+    let { question, answeredCorrectly } = this.state;
     this.setState({ nextQuestion: true, count: 0 })
+    
+    if (question !== null) {
+      this.props.answer(question, answeredCorrectly)
+    }
     this.showQuestion();
   }
 
@@ -57,7 +62,6 @@ export default class Card extends Component {
   processGuess = (e) => {
     let correct = this.checkAnswer(e.target.previousSibling.value);
 
-    this.props.answer(correct, this.state.question)
     this.setState({
       count: this.state.count + 1,
       answeredCorrectly: correct
@@ -72,7 +76,7 @@ export default class Card extends Component {
           <h4 onClick={this.nextQuestion}>Click to begin</h4>
         </div>
       )
-     } else {
+    } else {
       let { question, answer } = this.state.question;
       let { count, answeredCorrectly } = this.state;
       return (
