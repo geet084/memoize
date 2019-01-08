@@ -13,7 +13,8 @@ export default class Nav extends Component {
         </ul>
         <ul className="user">
           <li>Total correct: {theScore}</li>
-          <li onClick={this.props.reset}>Reset</li>
+          <li onClick={this.props.reset}
+            className="reset-btn">Reset</li>
         </ul>
       </nav>
     );
