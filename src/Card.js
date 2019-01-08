@@ -9,6 +9,7 @@ export default class Card extends Component {
     this.state = {
       count: 0,
       question: null,
+      answer: null,
       answeredCorrectly: null,
       nextQuestion: false
     }
@@ -69,6 +70,20 @@ export default class Card extends Component {
     e.target.previousSibling.value = '';
   }
 
+  seeHistory = (a) => {
+    let right = a;
+    let stuff;
+    this.props.answered.forEach(answer => {
+      if (answer.guess.question === a) stuff = answer.question;
+    })
+
+    if (stuff) {
+      return 'yes!';
+    } else {
+      return 'no...'
+    }
+  }
+
   render() {
     if (!this.state.nextQuestion) {
       return (
@@ -83,12 +98,14 @@ export default class Card extends Component {
         <div>
           <p>Number of guesses so far: {count}</p>
           <p>{question} ......{answer}.....</p>
+          <p>Answered correctly before: {this.seeHistory(question)}</p>
           <input type="text" />
           <button onClick={this.processGuess}>
             Click to check answer
           </button>
           <Answer nextQuestion={this.nextQuestion}
-                  answer={answeredCorrectly} />
+                  answer={answeredCorrectly}
+                  count={count} />
         </div>
       )
     }
