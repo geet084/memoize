@@ -21,11 +21,20 @@ class App extends Component {
         setTimeout(() => {
           this.setState({
             prototypes: data.aTypes,
+            answered: this.getFromStorage(),
             isLoading: false
           })
         }, 200);
       })
       .catch(err => console.error(err))
+  }
+
+  getFromStorage = () => {
+    if (localStorage.length === 0) {
+      return [];
+    } else {
+      return JSON.parse(localStorage.getItem('data'))
+    }
   }
 
   answer = (guess, question) => {
@@ -48,7 +57,8 @@ class App extends Component {
   }
 
   reset = () => {
-    this.setState({answered: []})
+    this.setState({ answered: [] })
+    localStorage.removeItem('data');
   }
 
   render() {
@@ -62,12 +72,11 @@ class App extends Component {
       return (
         <main className="App">
           <h1>Welcome ....</h1>
-          <Nav prototypes={prototypes}
-              showCard={this.showCard}
-              theScore={this.tallyScore()}
-              reset={this.reset} />
+          <Nav theScore={this.tallyScore()}
+               reset={this.reset} />
           <Display prototypes={prototypes}
-                  answer={this.answer} />
+                   answer={this.answer}
+                   answered={this.state.answered} />
         </main>
       );
     }
