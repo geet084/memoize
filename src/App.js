@@ -32,6 +32,7 @@ class App extends Component {
     let modArr = this.state.answered
     modArr.push({ guess: guess, question: question })
     this.setState({ answered: modArr })
+    localStorage.setItem('data', JSON.stringify(modArr))
   }
 
   tallyScore = () => { 
