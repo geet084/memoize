@@ -1,0 +1,33 @@
+.answer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.next-question {
+  width: 290px;
+  height: 35px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #00AEFF;
+}
+
+.correct {
+  width: 40vw;
+  margin: 10px 5px 5px 5px;
+  color: white;
+  background-color: green;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.incorrect {
+  width: 40vw;
+  margin: 10px 5px 5px 5px;
+  color: white;
+  background-color: maroon;
+  padding: 10px;
+  border-radius: 15px;
+}
