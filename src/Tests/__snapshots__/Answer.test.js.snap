@@ -2,14 +2,12 @@
 
 exports[`Answer should match the snapshot with all data passed in correctly 1`] = `
 <div>
-  <p>
-    YOUR ANSWER IS --CORRECT--!
-  </p>
   <button
     className="next-question"
     onClick={[MockFunction]}
   >
-    Click for next Question
+    Click to Submit answer and change to next Question
   </button>
+  <p />
 </div>
 `;
