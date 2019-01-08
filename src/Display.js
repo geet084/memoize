@@ -13,10 +13,10 @@ export default class Display extends Component {
 
   render() {
     return (
-      <section>
+      <section className="display">
         <Card questions={this.props.prototypes}
-          answer={this.props.answer}
-          answered={this.props.answered} />
+          currentAnswer={this.props.currentAnswer}
+          answeredQuestions={this.props.answeredQuestions} />
       </section>
     )
   }
