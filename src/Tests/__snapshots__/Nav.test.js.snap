@@ -10,7 +10,7 @@ exports[`Nav should match the snapshot with all data passed in correctly 1`] = `
     <li
       className="aTypes"
     >
-      Practice Array Prototypes
+      Practice Array Prototypes!
     </li>
   </ul>
   <ul
@@ -24,7 +24,7 @@ exports[`Nav should match the snapshot with all data passed in correctly 1`] = `
       className="reset-btn"
       onClick={[MockFunction]}
     >
-      Reset
+      Reset your progress
     </li>
   </ul>
 </nav>

@@ -11,7 +11,7 @@ exports[`Card should match the snapshot with all data passed in correctly 1`] = 
   <p
     className="intro"
   >
-    Welcome to Study Time, a web-based flashcard app to practice how well you know your Javascript Array Prototypes! 
+    Welcome to Study Time, a web-based flashcard app to practice how well you know your Javascript Array Prototypes!
   </p>
 </div>
 `;
