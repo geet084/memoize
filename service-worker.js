@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "//geet084.github.io/memoize/precache-manifest.fffd91526a81d3ef373b5c5977cb590b.js"
+  "/memoize/precache-manifest.8ac751cab83ddbecac2ca5c4e4767024.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("//geet084.github.io/memoize/index.html", {
+workbox.routing.registerNavigationRoute("/memoize/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
