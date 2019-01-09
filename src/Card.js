@@ -54,14 +54,14 @@ export default class Card extends Component {
     let { answer } = this.state.question;
 
     let guessIsCorrect = target.toLowerCase() === answer.toLowerCase()
-    let correct;
+    let isCorrect;
 
-    if (guessIsCorrect) correct = true;
-    else correct = false;
+    if (guessIsCorrect) isCorrect = true;
+    else isCorrect = false;
 
     this.setState({
       count: this.state.count + 1,
-      answeredCorrectly: correct
+      answeredCorrectly: isCorrect
     })
     e.target.previousSibling.value = '';
   }
@@ -80,11 +80,8 @@ export default class Card extends Component {
   }
 
   showBtnText = () => {
-    if (this.state.count > 0) {
-      return 'Click to try again';
-    } else {
-      return 'Click to check answer';
-    }
+    if (this.state.count > 0) return 'Click to try again';
+    else return 'Click to check answer';
   }
 
   render() {
@@ -92,18 +89,22 @@ export default class Card extends Component {
       return (
         <div>
           <h4 onClick={this.nextQuestion}
-            className="begin">Click to begin</h4>
-          <p className="intro">Welcome to Study Time, a web-based flashcard app to practice how well you know your Javascript Array Prototypes! </p>
+              className="begin">Click to begin</h4>
+          <p className="intro">
+            Welcome to Study Time, a web-based 
+            flashcard app to practice how well 
+            you know your Javascript Array Prototypes!
+          </p>
         </div>
       )
     } else {
-      let { definition, answer } = this.state.question;
+      let { definition} = this.state.question;
       let { count, answeredCorrectly } = this.state;
+      let isCorrect, previous;
       
       let result = this.showPrevResult(definition).includes('incorrect');
-      let showPrevious = this.showPrevResult(definition).includes('undefined');
-      let isCorrect, previous;
       result ? isCorrect = 'no' : isCorrect = 'yes';
+      let showPrevious = this.showPrevResult(definition).includes('undefined');
       showPrevious ? previous = 'undefined' : previous = 'show-previous';
 
       return (
@@ -112,11 +113,12 @@ export default class Card extends Component {
             Number of guesses so far:
             <span className="count">  {count}</span>
           </p>
-          <p className="definition">
-            {definition} ......{answer}.....
-          </p>
+          <p className="definition">{definition}</p>
           <p className={previous}>
-            Previous result for this question was: <span className={isCorrect}>{this.showPrevResult(definition)}</span>
+            Previous result for this question was:
+            <span className={isCorrect}>
+              {this.showPrevResult(definition)}
+            </span>
           </p>
           <input type="text" className="user-input"
             placeholder="ENTER YOUR ANSWER HERE"
@@ -125,9 +127,10 @@ export default class Card extends Component {
           <button onClick={this.checkAnswer}
                   className="user-btn">{this.showBtnText()}
           </button>
-          <Answer nextQuestion={this.nextQuestion}
-                  answer={answeredCorrectly}
-                  count={count} />
+          <Answer
+            nextQuestion={this.nextQuestion}
+            answer={answeredCorrectly}
+            count={count} />
         </div>
       )
     }

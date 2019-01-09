@@ -40,6 +40,7 @@ class App extends Component {
   updateAnsweredQuestions = (guess, question) => {
     let modArr = this.state.answeredQuestions
     modArr.push({ guess: guess, question: question })
+
     this.setState({ answeredQuestions: modArr })
     localStorage.setItem('data', JSON.stringify(modArr))
   }
@@ -63,7 +64,6 @@ class App extends Component {
 
   render() {
     let { prototypes, isLoading } = this.state;
-    
     if (isLoading) {
       return (
         <div>Loading</div>
@@ -73,11 +73,13 @@ class App extends Component {
       return (
         <main className="App">
           <h1 className="header">Welcome to Study Time</h1>
-          <Nav theScore={this.tallyScore()}
-               reset={this.reset} />
-          <Display prototypes={prototypes}
-                   currentAnswer={this.updateAnsweredQuestions}
-                   answeredQuestions={answeredQuestions} />
+          <Nav
+            theScore={this.tallyScore()}
+            reset={this.reset} />
+          <Display
+            prototypes={prototypes}
+            currentAnswer={this.updateAnsweredQuestions}
+            answeredQuestions={answeredQuestions} />
         </main>
       );
     }

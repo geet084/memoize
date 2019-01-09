@@ -9,12 +9,12 @@ export default class Nav extends Component {
     return (
       <nav className="nav">
         <ul className="types">
-          <li className="aTypes">Practice Array Prototypes</li>
+          <li className="aTypes">Practice Array Prototypes!</li>
         </ul>
         <ul className="user">
           <li>Total correct: {theScore}</li>
           <li onClick={this.props.reset}
-            className="reset-btn">Reset</li>
+            className="reset-btn">Reset your progress</li>
         </ul>
       </nav>
     );

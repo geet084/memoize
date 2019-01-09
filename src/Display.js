@@ -14,7 +14,8 @@ export default class Display extends Component {
   render() {
     return (
       <section className="display">
-        <Card questions={this.props.prototypes}
+        <Card
+          questions={this.props.prototypes}
           currentAnswer={this.props.currentAnswer}
           answeredQuestions={this.props.answeredQuestions} />
       </section>
