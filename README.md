@@ -14,6 +14,13 @@
 
 #### ...
 
+#### Screenshots
+![splash-page](https://user-images.githubusercontent.com/39391585/50904251-173bb580-13dd-11e9-8389-46eaf320a8dc.png)
+![answered](https://user-images.githubusercontent.com/39391585/50904249-173bb580-13dd-11e9-95e3-e7800412a52e.png)
+![video1](https://user-images.githubusercontent.com/39391585/50904518-b660ad00-13dd-11e9-91b7-5b35d80e3d03.gif)
+
+
+
 ### Primary Technologies Used
 
 - ReactJS
