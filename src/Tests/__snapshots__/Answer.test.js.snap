@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Answer should match the snapshot with all data passed in correctly 1`] = `
-<div>
+<div
+  className="answer"
+>
   <button
     className="next-question"
     onClick={[MockFunction]}
   >
-    Click to Submit answer and change to next Question
+    Submit answer & show next Question
   </button>
-  <p />
+  <p
+    className="correct"
+  >
+    THAT'S CORRECT!
+  </p>
 </div>
 `;

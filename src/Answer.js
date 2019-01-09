@@ -14,7 +14,7 @@ export default class Answer extends Component {
   render() {
     let { answer, count } = this.props;
     let questionAnswered = answer || answer === false;
-
+    
     if (questionAnswered) {
       let result = this.showGuessResult(answer, count).includes('INCORRECT');
       let isCorrect;
