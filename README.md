@@ -12,7 +12,7 @@
 
 #### Background/About
 
-#### This project was the final one of the module and was implemented as a solo endeavor. This was to showcase our knowledge of react and further solidify the concepts of Test Driven Development, React, Sass, and API fetch from Heroku. For this project we were asked to create a dataset which would be used for the API endpoint, and to implement a testing suite
+#### This project was the final one of the module and was implemented as a solo endeavor. This was to showcase our knowledge of react and further solidify the concepts of Test Driven Development, React, Sass, and API fetching from Heroku. For this project we were asked to create a dataset which would be used for the API endpoint, and to implement a testing suite
 
 #### Screenshots
 ![splash-page](https://user-images.githubusercontent.com/39391585/50904251-173bb580-13dd-11e9-8389-46eaf320a8dc.png)
