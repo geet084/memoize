@@ -52,6 +52,10 @@
   border-radius: 10px;
   font-size: 1rem;
   background-color: #00AEFF;
+  &:hover {
+    color: white;
+    background-color: #2D4C46;
+  }
 }
 
 .user-input {
@@ -63,6 +67,10 @@
   background-color: #00AEFF;
   &::placeholder {
     color:white;
+  }
+  &:hover {
+    color: white;
+    background-color: #2D4C46;
   }
 }
 
