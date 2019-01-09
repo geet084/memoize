@@ -48,16 +48,16 @@ export default class Card extends Component {
     return Object[type](this.props.questions[index]).shift()
   }
 
-  checkAnswer = (guess) => {
+  checkAnswer = (e) => {
+    
+    let target = e.target.previousSibling.value;
     let { answer } = this.state.question;
-    let guessIsCorrect = guess.toLowerCase() === answer.toLowerCase()
 
-    if (guessIsCorrect) return true;
-    else return false;
-  }
+    let guessIsCorrect = target.toLowerCase() === answer.toLowerCase()
+    let correct;
 
-  processGuess = (e) => {
-    let correct = this.checkAnswer(e.target.previousSibling.value);
+    if (guessIsCorrect) correct = true;
+    else correct = false;
 
     this.setState({
       count: this.state.count + 1,
@@ -122,7 +122,7 @@ export default class Card extends Component {
             placeholder="ENTER YOUR ANSWER HERE"
             onFocus={(e) => e.target.placeholder = ""}
             onBlur={(e) => e.target.placeholder = "ENTER YOUR ANSWER HERE"} />
-          <button onClick={this.processGuess}
+          <button onClick={this.checkAnswer}
                   className="user-btn">{this.showBtnText()}
           </button>
           <Answer nextQuestion={this.nextQuestion}

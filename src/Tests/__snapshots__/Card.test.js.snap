@@ -3,9 +3,15 @@
 exports[`Card should match the snapshot with all data passed in correctly 1`] = `
 <div>
   <h4
+    className="begin"
     onClick={[Function]}
   >
     Click to begin
   </h4>
+  <p
+    className="intro"
+  >
+    Welcome to Study Time, a web-based flashcard app to practice how well you know your Javascript Array Prototypes! 
+  </p>
 </div>
 `;
