@@ -1,0 +1,80 @@
+@mixin colorSet($color, $bgc) {
+  color: $color;
+  background-color: $bgc;
+}
+
+@mixin inputFormat($width, $height, $margin) {
+  width: $width;
+  height: $height;
+  margin: $margin;
+}
+
+.count {
+  color: #00AEFF;
+}
+
+.definition {
+  width: 75%;
+  height: 110px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.num-guess {
+  @include colorSet(#fff, #016FB9);
+  width: 40%;
+  margin: 20px 5px 5px 5px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.show-previous {
+  @include colorSet(#fff, #016FB9);
+  width: 40%;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.question {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.no {
+  color: maroon;
+}
+
+.yes {
+  color: lightgreen;
+}
+
+.undefined {
+  display: none;
+}
+
+.user-btn {
+  @include inputFormat(290px, 35px, 10px);
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #00AEFF;
+  &:hover {
+    @include colorSet(#fff, #2D4C46);
+  }
+}
+
+.user-input {
+  @include inputFormat(290px, 35px, 10px);
+  padding: 2px 2px 2px 5px;
+  font-size: 1.25rem;
+  background-color: #00AEFF;
+  &::placeholder {
+    color:white;
+  }
+  &:hover {
+    @include colorSet(#fff, #2D4C46);
+  }
+}
+

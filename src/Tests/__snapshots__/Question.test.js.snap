@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question should match the snapshot with all data passed in correctly 1`] = `
+<div
+  className="question"
+>
+  <p
+    className="num-guess"
+  >
+    Number of guesses so far:
+    <span
+      className="count"
+    >
+        
+      0
+    </span>
+  </p>
+  <p
+    className="definition"
+  />
+  <p
+    className="show-previous"
+  >
+    Previous result for this question was:
+    <span
+      className="yes"
+    >
+      <Component />
+    </span>
+  </p>
+  <input
+    className="user-input"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="ENTER YOUR ANSWER HERE"
+    type="text"
+  />
+  <button
+    className="user-btn"
+    onClick={[MockFunction]}
+  >
+    <Component />
+  </button>
+</div>
+`;

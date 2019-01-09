@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './CSS/Main.scss';
 import Answer from './Answer.js'
+import Question from './Question.js'
 
 export default class Card extends Component {
   constructor(props) {
@@ -109,24 +110,14 @@ export default class Card extends Component {
 
       return (
         <div className="card">
-          <p className="num-guess">
-            Number of guesses so far:
-            <span className="count">  {count}</span>
-          </p>
-          <p className="definition">{definition}</p>
-          <p className={previous}>
-            Previous result for this question was:
-            <span className={isCorrect}>
-              {this.showPrevResult(definition)}
-            </span>
-          </p>
-          <input type="text" className="user-input"
-            placeholder="ENTER YOUR ANSWER HERE"
-            onFocus={(e) => e.target.placeholder = ""}
-            onBlur={(e) => e.target.placeholder = "ENTER YOUR ANSWER HERE"} />
-          <button onClick={this.checkAnswer}
-                  className="user-btn">{this.showBtnText()}
-          </button>
+          <Question
+            count={count}
+            definition={definition}
+            previous={previous}
+            isCorrect={isCorrect}
+            showPrevResult={this.showPrevResult(definition)}
+            showBtnText={this.showBtnText()}
+            checkAnswer={this.checkAnswer} />
           <Answer
             nextQuestion={this.nextQuestion}
             answer={answeredCorrectly}
