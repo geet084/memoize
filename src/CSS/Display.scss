@@ -1,15 +1,3 @@
-.display {
-  display: flex;
-  justify-content: center;
-  
-}
-
-.intro {
-  color: #2D4C46;
-  width: 450px;
-  text-align: center;
-}
-
 .begin {
   padding: 15px 0;
   width: 425px;
@@ -20,4 +8,15 @@
     color: #00AEFF;
     border-radius: 15px;
   }
+}
+
+.display {
+  display: flex;
+  justify-content: center;
+}
+
+.intro {
+  color: #2D4C46;
+  width: 450px;
+  text-align: center;
 }

@@ -1,3 +1,14 @@
+@mixin colorSet($color, $bgc) {
+  color: $color;
+  background-color: $bgc;
+}
+
+@mixin styling($bord-rad, $margin, $width) {
+  border-radius: $bord-rad;
+  margin: $margin;
+  width: $width;
+}
+
 .answer {
   display: flex;
   justify-content: center;
@@ -6,32 +17,23 @@
 }
 
 .next-question {
-  width: 290px;
-  height: 35px;
-  margin: 10px;
-  border-radius: 10px;
-  font-size: 1rem;
+  @include styling(10px, 10px, 290px);
   background-color: #00AEFF;
+  font-size: 1rem;
+  height: 35px;
   &:hover {
-    color: white;
-    background-color: #2D4C46;
+    @include colorSet(#fff, #2D4C46);
   }
 }
 
 .correct {
-  width: 40vw;
-  margin: 10px 5px 5px 5px;
-  color: white;
-  background-color: green;
+  @include colorSet(#fff, green);
+  @include styling(15px, 10px 5px 5px 5px, 40vw);
   padding: 10px;
-  border-radius: 15px;
 }
 
 .incorrect {
-  width: 40vw;
-  margin: 10px 5px 5px 5px;
-  color: white;
-  background-color: maroon;
+  @include colorSet(#fff, maroon);
+  @include styling(15px, 10px 5px 5px 5px, 40vw);
   padding: 10px;
-  border-radius: 15px;
 }
