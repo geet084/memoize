@@ -1,13 +1,14 @@
 {
-  "main.css": "/memoize/static/css/main.c4781ad0.chunk.css",
-  "main.js": "/memoize/static/js/main.15b091da.chunk.js",
-  "main.js.map": "/memoize/static/js/main.15b091da.chunk.js.map",
+  "main.css": "/memoize/static/css/main.9cbad4ce.chunk.css",
+  "main.js": "/memoize/static/js/main.fcecae27.chunk.js",
+  "main.js.map": "/memoize/static/js/main.fcecae27.chunk.js.map",
   "static/js/1.35d49673.chunk.js": "/memoize/static/js/1.35d49673.chunk.js",
   "static/js/1.35d49673.chunk.js.map": "/memoize/static/js/1.35d49673.chunk.js.map",
   "runtime~main.js": "/memoize/static/js/runtime~main.1a418a8c.js",
   "runtime~main.js.map": "/memoize/static/js/runtime~main.1a418a8c.js.map",
-  "static/css/main.c4781ad0.chunk.css.map": "/memoize/static/css/main.c4781ad0.chunk.css.map",
+  "static/css/main.9cbad4ce.chunk.css.map": "/memoize/static/css/main.9cbad4ce.chunk.css.map",
+  "static/media/Main.scss": "/memoize/static/media/7108.ab5c4939.jpg",
   "index.html": "/memoize/index.html",
-  "precache-manifest.4de9d9d1df2802918ade15010ca13227.js": "/memoize/precache-manifest.4de9d9d1df2802918ade15010ca13227.js",
+  "precache-manifest.983572b1de91daf31ab006798ff7f3f4.js": "/memoize/precache-manifest.983572b1de91daf31ab006798ff7f3f4.js",
   "service-worker.js": "/memoize/service-worker.js"
 }
