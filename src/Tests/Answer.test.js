@@ -27,5 +27,24 @@ describe('Answer', () => {
     wrapper.find('.next-question').simulate('click')
     expect(mockNextQuestion).toBeCalled()
   })
+
+  it('should change the classname of the text', () => { 
+    wrapper.setProps({ answeredCorrectly: false })
+    
+    expect(wrapper.find('p').hasClass("incorrect")).toEqual(true)
+    
+    wrapper.setProps({ answeredCorrectly: true })
+    expect(wrapper.find('p').hasClass("correct")).toEqual(true)
+    
+  })
+
+  it('should change the displayed text', () => {
+    wrapper.setProps({ answeredCorrectly: false })
+    expect(wrapper.find('p').text()).toEqual("THAT'S INCORRECT!")
+    
+    wrapper.setProps({ answeredCorrectly: true })
+    expect(wrapper.find('p').text()).toEqual("THAT'S CORRECT!")
+  })
+
 });
 

@@ -98,6 +98,17 @@ describe('Card', () => {
     expect(wrapper.instance().lookForPrevResult(previouslyAnswered)).toEqual(true)
   })
 
+  it('should get previous answer result', () => {
+    let previouslyAnswered = "This method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth."
+
+    wrapper.setProps({ answeredQuestions: mockAnsweredQuestions })
+
+    expect(wrapper.instance().getPreviousAnswer('wrong')).toEqual(null)
+    expect(wrapper.instance().getPreviousAnswer(previouslyAnswered)).toEqual(true)
+    
+
+  })
+
   it('should change the text on the answer button when clicked', () => {
 
     expect(wrapper.instance().showBtnText()).toEqual('Click to check answer')
