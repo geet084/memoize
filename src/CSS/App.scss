@@ -5,12 +5,14 @@
 }
 
 body {
-  background-color: #6D8EA0;
+  background: url('../img/7108.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .header {
-  color: #016FB9;
-  background-color: #AFA98D;
+  background: url('../img/bg.svg') no-repeat center center fixed;
+  background-size: cover;
+  color: #89cfff;
   margin: 0;
   padding: 20px 35px 20px 35px;
 }

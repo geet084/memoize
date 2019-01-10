@@ -1,12 +1,18 @@
 .begin {
   padding: 15px 0;
   width: 425px;
-  margin-left: 12px;
+  margin-left: 50px;
+  color: #d7deee;
+  background-color: #003f6a;
+  opacity: .85;
+  border-radius: 15px;
+  font-size: 2rem;
 
   &:hover{
-    background-color: #182825;
-    color: #00AEFF;
+    background-color: #2D4C46;
+    color: #fff;
     border-radius: 15px;
+    opacity: 1;
   }
 }
 
@@ -16,7 +22,12 @@
 }
 
 .intro {
-  color: #2D4C46;
+  color: #fff;
   width: 450px;
   text-align: center;
+  background-color: #2D4C46;
+  padding: 40px;
+  opacity: .8;
+  font-size: 3rem;
+  border-radius: 15px;
 }
