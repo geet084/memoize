@@ -18,7 +18,7 @@ exports[`Nav should match the snapshot with all data passed in correctly 1`] = `
   >
     <li>
       Total correct: 
-      <Component />
+      0
     </li>
     <li
       className="reset-btn"

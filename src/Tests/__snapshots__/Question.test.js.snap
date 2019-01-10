@@ -17,27 +17,21 @@ exports[`Question should match the snapshot with all data passed in correctly 1`
   </p>
   <p
     className="definition"
-  />
-  <p
-    className="show-previous"
   >
-    Previous result for this question was:
-    <span
-      className="yes"
-    >
-      <Component />
-    </span>
+    hello
   </p>
   <input
     className="user-input"
     onBlur={[Function]}
+    onChange={[Function]}
     onFocus={[Function]}
     placeholder="ENTER YOUR ANSWER HERE"
     type="text"
+    value=""
   />
   <button
     className="user-btn"
-    onClick={[MockFunction]}
+    onClick={[Function]}
   >
     <Component />
   </button>

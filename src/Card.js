@@ -2,43 +2,36 @@ import React, { Component } from 'react';
 import './CSS/Main.scss';
 import Answer from './Answer.js'
 import Question from './Question.js'
+import Intro from './Intro.js'
 
 export default class Card extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
-      count: 0,
+      numOfGuesses: 0,
       question: null,
-      answeredCorrectly: null,
-      showNextQuestion: false
+      answeredCorrectly: false,
+      showNextQuestion: false,
+      prevAnswer: null
     }
   }
 
-  nextQuestion = () => {
+  nextQuestionHandler = () => {
     let { question, answeredCorrectly } = this.state;
-    this.setState({
-      showNextQuestion: true,
-      count: 0,
-      answeredCorrectly: null
-    })
-    
-    if (question !== null) {
-      this.props.currentAnswer(question, answeredCorrectly)
-    }
-    this.showQuestion();
-  }
-
-  showQuestion = () => {
-    let { questions } = this.props
-    
+    let { questions, updateAnswersHandler } = this.props
     let randomIndex = this.getRandomNumber(questions.length)
-    let rightAnswer = this.findQuestion('keys', randomIndex)
+    let answer = this.findQuestion('keys', randomIndex)
     let definition = this.findQuestion('values', randomIndex)
 
+    if (question) updateAnswersHandler(question, answeredCorrectly)
+
     this.setState({
-      question: { definition: definition, answer: rightAnswer }
-    });
+      numOfGuesses: 0,
+      question: { definition, answer },
+      answeredCorrectly: false,
+      showNextQuestion: true
+    })
   }
 
   getRandomNumber = (max) => {
@@ -49,80 +42,68 @@ export default class Card extends Component {
     return Object[type](this.props.questions[index]).shift()
   }
 
-  checkAnswer = (e) => {
-    
-    let target = e.target.previousSibling.value;
+  checkAnswer = (userGuess) => {
     let { answer } = this.state.question;
-
-    let guessIsCorrect = target.toLowerCase() === answer.toLowerCase()
-    let isCorrect;
-
-    if (guessIsCorrect) isCorrect = true;
-    else isCorrect = false;
+    let guessIsCorrect = userGuess.toLowerCase() === answer.toLowerCase()
 
     this.setState({
-      count: this.state.count + 1,
-      answeredCorrectly: isCorrect
+      numOfGuesses: this.state.numOfGuesses + 1,
+      answeredCorrectly: guessIsCorrect
     })
-    e.target.previousSibling.value = '';
   }
 
-  showPrevResult = (question) => {
-    let matchedAnswer;
+  getPreviousAnswer = (curDef) => {
+    let prevAnswer = null;
+    
     this.props.answeredQuestions.forEach(answer => {
-      if (answer.guess.definition === question) {
-        matchedAnswer = answer.question;
-      }
+      if (answer.question.definition === curDef) {
+        prevAnswer = answer.userGuess;
+      } 
+    })
+    return prevAnswer;
+  }
+
+  lookForPrevResult = (curDef) => {
+    let matchedAnswer = false;
+    
+    this.props.answeredQuestions.forEach(answer => {
+      if (answer.question.definition === curDef) {
+        matchedAnswer = true;
+      } 
     })
 
-    if (matchedAnswer === undefined) return 'undefined';
-    else if (matchedAnswer) return 'correct!'
-    else return 'incorrect...';
+    if (matchedAnswer) return true
+    else return false;
   }
 
   showBtnText = () => {
-    if (this.state.count > 0) return 'Click to try again';
+    if (this.state.numOfGuesses > 0) return 'Click to try again';
     else return 'Click to check answer';
   }
 
   render() {
-    if (!this.state.showNextQuestion) {
-      return (
-        <div>
-          <h4 onClick={this.nextQuestion}
-              className="begin">Click to begin</h4>
-          <p className="intro">
-            Welcome to Study Time, a web-based 
-            flashcard app to practice how well 
-            you know your Javascript Array Prototypes!
-          </p>
-        </div>
-      )
-    } else {
-      let { definition} = this.state.question;
-      let { count, answeredCorrectly } = this.state;
-      let isCorrect, previous;
-      
-      let result = this.showPrevResult(definition).includes('incorrect');
-      result ? isCorrect = 'no' : isCorrect = 'yes';
-      let showPrevious = this.showPrevResult(definition).includes('undefined');
-      showPrevious ? previous = 'undefined' : previous = 'show-previous';
+    let { showNextQuestion, numOfGuesses, answeredCorrectly } = this.state;
 
+    if (showNextQuestion) {
+      let { definition } = this.state.question;
       return (
         <div className="card">
           <Question
-            count={count}
+            numOfGuesses={numOfGuesses}
             definition={definition}
-            previous={previous}
-            isCorrect={isCorrect}
-            showPrevResult={this.showPrevResult(definition)}
-            showBtnText={this.showBtnText()}
-            checkAnswer={this.checkAnswer} />
+            checkAnswer={this.checkAnswer}
+            previouslyAnswered={this.lookForPrevResult(definition)}
+            prevAnswer={this.getPreviousAnswer(definition)}
+            showBtnText={this.showBtnText()} />
           <Answer
-            nextQuestion={this.nextQuestion}
-            answer={answeredCorrectly}
-            count={count} />
+            nextQuestion={this.nextQuestionHandler}
+            answeredCorrectly={answeredCorrectly}
+            numOfGuesses={numOfGuesses} />
         </div>
+      )
+    } else {
+      return (
+        <Intro nextQuestionHandler={this.nextQuestionHandler} />
       )
     }
   }

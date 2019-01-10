@@ -9,7 +9,7 @@ li {
 }
 
 .nav {
-  @include colorSet(white, #182825);
+  @include colorSet(white, #2D4C46);
   align-items: center;
   display: flex;
   justify-content: space-evenly;
@@ -20,7 +20,7 @@ li {
   background-color: #2D4C46;
   border-radius: 10px;
   &:hover {
-    @include colorSet(#182825, #00AEFF);
+    @include colorSet(rgb(20, 46, 131), #5b93b8);
     cursor: pointer;
   }
 }

@@ -2,6 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../App';
 import { shallow } from 'enzyme';
+global.localStorage = '../setupTests.js';
+
+global.JSON = {
+  parse: function (str) {
+    return str;
+  },
+  stringify: function (str) {
+    return str;
+  }
+}
 
 describe('App', () => {
   let wrapper;
@@ -10,6 +20,11 @@ describe('App', () => {
     wrapper = shallow(
       <App />
     )
+    wrapper.setState({answeredQuestions: []})
+  })
+
+  afterEach(() => {
+    localStorage.clear();
   })
 
   it('renders without crashing', () => {
@@ -22,78 +37,57 @@ describe('App', () => {
     expect(wrapper).toMatchSnapshot();
   })
 
-  it('should have a proper default state', () => {
-    expect(wrapper.state()).toEqual({
-      prototypes: null,
-      answeredQuestions: [],
-      isLoading: true
-    })
-  })
-
-  it('should retrieve data from local storage', () => {
-    let result = wrapper.instance().getFromStorage();
-    expect(result).toEqual([])
-    wrapper.instance().updateAnsweredQuestions('hello', { question: 'mock' })
-    result = wrapper.instance().getFromStorage();
-    expect(result).toEqual([{ "guess": "hello", "question": { "question": "mock" } }])
-  })
-
-  it('should update local storage based on what was answered', () => {
-    expect(wrapper.state()).toEqual({
-      prototypes: null,
-      answeredQuestions: [],
-      isLoading: true
-    })
-    wrapper.instance().updateAnsweredQuestions();
-    expect(wrapper.state()).toEqual({
-      prototypes: null,
-      answeredQuestions: [{
-        guess: undefined,
-        question: undefined
-      }],
-      isLoading: true
-    })
-  })
-
-  it('should tally the number of questions answered right', () => {
-    expect(wrapper.state()).toEqual({
-      prototypes: null,
-      answeredQuestions: [],
-      isLoading: true
-    })
-    let result = wrapper.instance().tallyScore();
-    expect(result).toEqual(0)
-    wrapper.instance().updateAnsweredQuestions('hello', { question: 'mock' })
-    result = wrapper.instance().tallyScore();
-    expect(result).toEqual(1)
-  })
-  
-  it('should reset local storage and state', () => {
-    expect(wrapper.state()).toEqual({
-      prototypes: null,
-      answeredQuestions: [],
-      isLoading: true
-    })
-    wrapper.instance().updateAnsweredQuestions('hello', { question: 'mock' })
+  it('should return an empty array if local storage is empty', () => { 
     
-    wrapper.instance().reset();
+    expect(wrapper.instance().getFromStorage()).toEqual([])
+  })
+
+  it('should return and array of items from local storage if it is not empty', () => {
+
+    localStorage.setItem('userAnsweredQuestions', ['a', 'b'])
+    let newArray = localStorage.getItem('userAnsweredQuestions')
+    expect(wrapper.instance().getFromStorage()).toEqual(newArray)    
+  })
+
+  it('should update answered questions list', () => {
+    expect(wrapper.state('answeredQuestions')).toEqual([])
+    expect(wrapper.instance().getFromStorage()).toEqual([])
+
+    wrapper.instance().updateAnsweredQuestions({}, 'hello');
+
+    expect(wrapper.state('answeredQuestions')).toEqual([{ userGuess: 'hello', question: {} }])
+    let newArray = localStorage.getItem('userAnsweredQuestions')
+    expect(wrapper.instance().getFromStorage()).toEqual(newArray)
+  })
+
+  it('should update the players score if the answer is guessed right', () => { 
+    expect(wrapper.state('score')).toEqual(0)
+    wrapper.setState({
+      answeredQuestions: [{ userGuess: true, question: {} }]
+    })
+    wrapper.instance().tallyScore();
+    expect(wrapper.state('score')).toEqual(1)
+  })
+
+  it('should not update the players score if the answer is guessed wrong', () => {
+    expect(wrapper.state('score')).toEqual(0)
+    wrapper.setState({
+      answeredQuestions: [{ userGuess: false, question: {} }]
+    })
+    wrapper.instance().tallyScore();
+    expect(wrapper.state('score')).toEqual(0)
+  })
+
+  it('should reset the score and answered questions list', () => {
+    wrapper.setState({
+      answeredQuestions: [{ score: 9, userGuess: false, question: {} }]
+    })
+    
+    wrapper.instance().resetAnsweredQuestions();
+
     expect(wrapper.state()).toEqual({
-      prototypes: null,
-      answeredQuestions: [],
-      isLoading: true
+      score: 0, answeredQuestions: [], prototypes: []
     })
   })
-
-  it('should render the splash page', () => {
-    expect(wrapper.html()).toEqual("<div>Loading</div>");
-  })
-
-  it.skip('should render past the slash page', () => {
-
-    // TRIED TO TEST THIS, COMPUTER DID NOT COOPERATE
-    wrapper.state({isLoading: false})
-    expect(wrapper.html()).toBeNull();
-  })
-
 });
 

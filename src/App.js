@@ -8,22 +8,21 @@ class App extends Component {
     super();
 
     this.state = {
-      prototypes: null, 
+      prototypes: [], 
       answeredQuestions: [],
-      isLoading: true
+      score: 0
     }
   }
 
   componentDidMount = () => { 
-    fetch('http://memoize-datasets.herokuapp.com/api/v1/aTypes')
+    fetch('https://memoize-datasets.herokuapp.com/api/v1/aTypes')
       .then(data => data.json())
       .then(data => {
         setTimeout(() => {
           this.setState({
             prototypes: data.aTypes,
-            answeredQuestions: this.getFromStorage(),
-            isLoading: false
-          })
+            answeredQuestions: this.getFromStorage()
+          }, this.tallyScore)
         }, 200);
       })
       .catch(err => console.error(err))
@@ -33,56 +32,51 @@ class App extends Component {
     if (localStorage.length === 0) {
       return [];
     } else {
-      return JSON.parse(localStorage.getItem('data'))
+      return JSON.parse(localStorage.getItem('userAnsweredQuestions'))
     }
   }
 
-  updateAnsweredQuestions = (guess, question) => {
+  updateAnsweredQuestions = (question, guess) => {
     let modArr = this.state.answeredQuestions
-    modArr.push({ guess: guess, question: question })
+    modArr.push({ userGuess: guess, question: question })
 
-    this.setState({ answeredQuestions: modArr })
-    localStorage.setItem('data', JSON.stringify(modArr))
+    this.setState({ answeredQuestions: modArr }, this.tallyScore())
+    localStorage.setItem('userAnsweredQuestions', JSON.stringify(modArr))    
   }
 
   tallyScore = () => { 
     let { answeredQuestions } = this.state;
+    let score = 0;
 
-    if (answeredQuestions.length === 0) {
-      return 0;
-    } else {
-      return answeredQuestions.filter(answer => {
-        return answer.question
-      }).length
+    if (answeredQuestions.length) {
+      score = answeredQuestions.filter(answer => {
+        return answer.userGuess
+      }).length;
     }
+
+    this.setState({ score })
   }
 
-  reset = () => {
-    this.setState({ answeredQuestions: [] })
-    localStorage.removeItem('data');
+  resetAnsweredQuestions = () => {
+    this.setState({ answeredQuestions: [], score: 0 })
+    localStorage.removeItem('userAnsweredQuestions');
   }
 
   render() {
-    let { prototypes, isLoading } = this.state;
-    if (isLoading) {
-      return (
-        <div>Loading</div>
-      );
-    } else {
-      let { answeredQuestions } = this.state;
-      return (
-        <main className="App">
-          <h1 className="header">Welcome to Study Time</h1>
-          <Nav
-            theScore={this.tallyScore()}
-            reset={this.reset} />
-          <Display
-            prototypes={prototypes}
-            currentAnswer={this.updateAnsweredQuestions}
-            answeredQuestions={answeredQuestions} />
-        </main>
-      );
-    }
+    let { prototypes, answeredQuestions, score } = this.state;
+
+    return (
+      <main className="App">
+        <h1 className="header">Welcome to Study Time</h1>
+        <Nav
+          score={score}
+          resetHandler={this.resetAnsweredQuestions} />
+        <Display
+          prototypes={prototypes}
+          updateAnswersHandler={this.updateAnsweredQuestions}
+          answeredQuestions={answeredQuestions} />
+      </main>
+    );
   }
 }
 

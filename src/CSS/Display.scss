@@ -1,22 +1,15 @@
-.begin {
-  padding: 15px 0;
-  width: 425px;
-  margin-left: 12px;
-
-  &:hover{
-    background-color: #182825;
-    color: #00AEFF;
-    border-radius: 15px;
-  }
-}
-
 .display {
   display: flex;
   justify-content: center;
 }
 
 .intro {
-  color: #2D4C46;
+  color: #fff;
   width: 450px;
   text-align: center;
+  background-color: #2D4C46;
+  padding: 40px;
+  opacity: .8;
+  font-size: 3rem;
+  border-radius: 15px;
 }

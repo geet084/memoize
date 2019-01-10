@@ -10,7 +10,7 @@
 }
 
 .count {
-  color: #00AEFF;
+  color: #ffeb3b;
 }
 
 .definition {
@@ -18,6 +18,11 @@
   height: 110px;
   margin: 5px;
   padding: 10px;
+  color:#013309;
+  background-color: #add9ec;
+  opacity: .65;
+  border-radius: 25px;
+  font-size: 1.75rem;
 }
 
 .num-guess {
@@ -43,38 +48,31 @@
   flex-direction: column;
 }
 
-.no {
-  color: maroon;
-}
-
-.yes {
-  color: lightgreen;
-}
-
-.undefined {
-  display: none;
-}
-
 .user-btn {
   @include inputFormat(290px, 35px, 10px);
   border-radius: 10px;
-  font-size: 1rem;
-  background-color: #00AEFF;
+  font-size: 1.25rem;
+  color: #fff;
+  background-color: #016FB9;
   &:hover {
-    @include colorSet(#fff, #2D4C46);
+    @include colorSet(#013309, #add9ec);
   }
 }
 
 .user-input {
   @include inputFormat(290px, 35px, 10px);
-  padding: 2px 2px 2px 5px;
+  padding: 5px 2px 5px 5px;
   font-size: 1.25rem;
-  background-color: #00AEFF;
+  
+  background-color: #016FB9;
   &::placeholder {
-    color:white;
+    color:#fff;
   }
   &:hover {
-    @include colorSet(#fff, #2D4C46);
+    @include colorSet(#013309, #add9ec);
+    &::placeholder {
+      color: #013309;
+    }
   }
 }
 

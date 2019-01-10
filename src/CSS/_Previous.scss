@@ -1,0 +1,31 @@
+.previous {
+  height: 30px;
+  margin: 5px;
+  padding: 10px;
+  color: #013309;
+  background-color: #add9ec;
+  opacity: .65;
+  border-radius: 20px;
+  font-size: 1.25rem;
+}
+
+.false {
+  visibility: visible;
+  background-color: red;
+  color: #360101;
+  border-radius: 5px;
+  padding: 2px 4px 2px 1px;
+}
+
+.null {
+  display: none;
+  visibility: hidden;
+}
+
+.true {
+  visibility: visible;
+  background-color: lightgreen;
+  color: #013801;
+  border-radius: 5px;
+  padding: 2px 4px 2px 1px;
+}
