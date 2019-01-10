@@ -3,16 +3,19 @@ import Card from '../Card.js';
 import { shallow } from 'enzyme';
 import aTypes from '../datasets/aType.js'
 
-const mockPrototypes = jest.fn();
-const mockAnswers = jest.fn();
-const mockShowQuestion = jest.fn();
+const mockQuestions = jest.fn();
+const mockUpdateAnswersHandler = jest.fn();
 const mockSingleQuestion = [
   {
     "concat": "This method is used to merge two or more arrays. This method also does not change the existing arrays, but instead returns a new array."
   }]
 const mockAnsweredQuestions = [{
-  question: false,
-  guess: { answer: 'push', definition: "This method adds one or more elements to the end of an array and returns the new length of the array."}
+  userGuess: false,
+  question: { answer: 'push', definition: "This method adds one or more elements to the end of an array and returns the new length of the array."}
+},
+{
+  userGuess: true,
+  question: { answer: 'flat', definition: "This method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth." }
 }];
 
 describe('Card', () => {
@@ -20,13 +23,15 @@ describe('Card', () => {
 
   beforeEach(() => {
     wrapper = shallow(
-      <Card questions={mockPrototypes}
-        answer={mockAnswers} />
+      <Card
+        questions={mockQuestions}
+        updateAnswersHandler={mockUpdateAnswersHandler}
+        answeredQuestions={mockAnsweredQuestions} />
     )
     expect(wrapper.state()).toEqual({
-      count: 0,
+      numOfGuesses: 0,
       question: null,
-      answeredCorrectly: null,
+      answeredCorrectly: false,
       showNextQuestion: false
     })
   })
@@ -35,34 +40,18 @@ describe('Card', () => {
     expect(wrapper).toMatchSnapshot();
   })
 
-  it('should have a proper default state', () => {
-    expect(wrapper.state()).toEqual({
-      count: 0,
-      question: null,
-      answeredCorrectly: null,
-      showNextQuestion: false
-    })
-  })
+  it.skip('should advance to the next question when answer is submitted', () => {
+    wrapper.setProps({ question: aTypes })
+    wrapper.setState({ questions: mockSingleQuestion })
+    wrapper.instance().nextQuestionHandler();
 
-  it.skip('should advance to the next question when clicked', () => {
-    wrapper.setState({
-      showNextQuestion: false,
-      question: {
-        definition: aTypes.aTypes[6].find,
-        answer: 'find'
-      }, 
-      count: 1,
-      answeredCorrectly: true
-    })
-    wrapper.setProps({answeredQuestions: mockAnsweredQuestions})
-    wrapper.instance().nextQuestion();
-    // expect(mockShowQuestion).toBeCalled()
+    // expect(wrapper.state()).toEqual({
+    //   numOfGuesses: 0,
+    //   question: { definition, answer },
+    //   answeredCorrectly: false,
+    //   showNextQuestion: true
+    // })
 
-    expect(wrapper.state()).toEqual({
-      showNextQuestion: true,
-      count: 0,
-      answeredCorrectly: null
-    })
   })
   
   it('should generate a random number between zero and a given max', () => {
@@ -72,80 +61,48 @@ describe('Card', () => {
     expect(number).not.toEqual(10)
   })
 
-  it('should show a question when prompted', () => {
-  /*SPECIFIC TO NOT HAVE TO DEAL WITH THE RANDOM GENERATED PART!!*/
+  it('should find a question answer or definition from a given index', () => {
+
+    let questionDefinition = 'This method is used to merge two or more arrays. This method also does not change the existing arrays, but instead returns a new array.'
     
     wrapper.setProps({questions: mockSingleQuestion})
-    wrapper.instance().showQuestion();
-    expect(wrapper.state()).toEqual({
-      count: 0,
-      question: {
-        answer: 'concat',
-        definition: 'This method is used to merge two or more arrays. This method also does not change the existing arrays, but instead returns a new array.'
-      },
-      answeredCorrectly: null,
-      showNextQuestion: false
-    })
+    expect(wrapper.instance().findQuestion('keys', 0)).toEqual('concat')
+
+    expect(wrapper.instance().findQuestion('values', 0)).toEqual(questionDefinition)
+    
   })
 
-  it.skip('should find a question and answer from available choices', () => {
-    let mockType = 'keys';
-    let mockIndex = 1;
-    wrapper.setProps({ questions: mockSingleQuestion })
-    expect(wrapper.instance().findQuestion(mockType, mockIndex)).toEqual('copyWithin')
+  it('should check the users answer to see if it is correct', () => {
+    expect(wrapper.state('numOfGuesses')).toEqual(0)
+    expect(wrapper.state('answeredCorrectly')).toEqual(false)
+
+    wrapper.setState({ question: {answer: 'Hello there'} })
     
-    mockType = 'values';
+    wrapper.instance().checkAnswer('hello there');
+    expect(wrapper.state('numOfGuesses')).toEqual(1)
+    expect(wrapper.state('answeredCorrectly')).toEqual(true)
+
+  })
+
+  it('should check to see if the user has answered a particular question before', () => {
+
+    let previouslyAnswered = "This method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth."
+
+    wrapper.setProps({ answeredQuestions: mockAnsweredQuestions })
+
+    expect(wrapper.instance().showPrevResult('wrong')).toEqual(false)
+    
+    expect(wrapper.instance().showPrevResult(previouslyAnswered)).toEqual(true)
+  })
+
+  it('should change the text on the answer button when clicked', () => {
+
+    expect(wrapper.instance().showBtnText()).toEqual('Click to check answer')
+    wrapper.setState({ numOfGuesses: 1 })
+    
+    expect(wrapper.instance().showBtnText()).toEqual('Click to try again')
+  })
   
-    expect(wrapper.instance().findQuestion(mockType, mockIndex)).toEqual('This method shallow copies part of an array to another location in the same array and returns it, without modifying its size.')
-  })
-
-  it('should check the answer that the user puts in', () => {
-
-    expect(wrapper.state()).toEqual({
-      count: 0,
-      question: null,
-      answeredCorrectly: null,
-      showNextQuestion: false
-    })
-    
-    wrapper.setState({
-      question: {
-        definition: aTypes.aTypes[6].find,
-        answer: 'find'
-      }
-    })
-    let mockClick = { target: { previousSibling: { value: 'hello' } } }
-    wrapper.instance().checkAnswer(mockClick);
-
-    expect(wrapper.state()).toEqual({
-      count: 1,
-      question: {
-        definition: aTypes.aTypes[6].find,
-        answer: 'find'
-      },
-      answeredCorrectly: false,
-      showNextQuestion: false
-    })
-  })
-
-  it.skip('should so the results of previous correctly answered questions', () => {
-    expect(wrapper.state()).toEqual({
-      count: 0,
-      question: null,
-      answeredCorrectly: null,
-      showNextQuestion: false
-    })
-    wrapper.setProps({ answeredQuestions: mockSingleQuestion })
-    let result = wrapper.instance().showPrevResult();
-    expect(result).toEqual('undefined')
-  })
-
-  it('should toggle the check answer button text', () => {
-    let result = wrapper.instance().showBtnText();
-    expect(result).toEqual('Click to check answer')
-    wrapper.setState({ count: 9 })
-    result = wrapper.instance().showBtnText();
-    expect(result).toEqual('Click to try again')
-  })
+ 
 });
 

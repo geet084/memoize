@@ -4,7 +4,7 @@ import './CSS/Main.scss';
 export default class Nav extends Component {
 
   render() {
-    let { theScore } = this.props;
+    let { score, resetHandler } = this.props;
  
     return (
       <nav className="nav">
@@ -12,8 +12,8 @@ export default class Nav extends Component {
           <li className="aTypes">Practice Array Prototypes!</li>
         </ul>
         <ul className="user">
-          <li>Total correct: {theScore}</li>
-          <li onClick={this.props.reset}
+          <li>Total correct: {score}</li>
+          <li onClick={resetHandler}
             className="reset-btn">Reset your progress</li>
         </ul>
       </nav>

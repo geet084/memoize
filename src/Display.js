@@ -12,12 +12,14 @@ export default class Display extends Component {
   }
 
   render() {
+    let { prototypes, updateAnswersHandler, answeredQuestions } = this.props;
+
     return (
       <section className="display">
         <Card
-          questions={this.props.prototypes}
-          currentAnswer={this.props.currentAnswer}
-          answeredQuestions={this.props.answeredQuestions} />
+          questions={prototypes}
+          updateAnswersHandler={updateAnswersHandler}
+          answeredQuestions={answeredQuestions} />
       </section>
     )
   }

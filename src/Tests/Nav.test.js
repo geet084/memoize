@@ -2,16 +2,17 @@ import React from 'react';
 import Nav from '../Nav.js';
 import { shallow } from 'enzyme';
 
-const mockTally = jest.fn();
-const mockReset = jest.fn();
+const mockScore = 0;
+const mockResetHandler = jest.fn();
 
 describe('Nav', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = shallow(
-      <Nav theScore={mockTally}
-           reset={mockReset} />
+      <Nav
+        score={mockScore}
+        resetHandler={mockResetHandler} />
     )
   })
 
@@ -21,13 +22,7 @@ describe('Nav', () => {
 
   it('should register a click to reset the score', () => {
     wrapper.find('.reset-btn').simulate('click')
-    expect(mockReset).toBeCalled()
+    expect(mockResetHandler).toBeCalled()
   })
-
-  it.skip('should show an updated score', () => {
-    // ?? is this a testable thing?
-    expect('nav to test dom change').toEqual('true')
-  })
-
 });
 

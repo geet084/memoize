@@ -2,10 +2,8 @@ import React from 'react';
 import Question from '../Question.js';
 import { shallow } from 'enzyme';
 
-const mockCount = 0;
-const mockDefinition = undefined;
-const mockPrevious = 'show-previous';
-const mockIsCorrect = 'yes';
+const mocknumOfGuesses = 0;
+const mockDefinition = 'hello';
 const mockShowPrevResult = jest.fn();
 const mockShowBtnText = jest.fn();
 const mockCheckAnswer = jest.fn();
@@ -16,10 +14,8 @@ describe('Question', () => {
   beforeEach(() => {
     wrapper = shallow(
       <Question
-        count={mockCount}
+        numOfGuesses={mocknumOfGuesses}
         definition={mockDefinition}
-        previous={mockPrevious}
-        isCorrect={mockIsCorrect}
         showPrevResult={mockShowPrevResult}
         showBtnText={mockShowBtnText}
         checkAnswer={mockCheckAnswer} />
@@ -30,10 +26,26 @@ describe('Question', () => {
     expect(wrapper).toMatchSnapshot();
   })
 
-  it('should register when clicked for checking the answer', () => {
+  it('should update with what a user types in', () => {
+    expect(wrapper.state()).toEqual({ userInput: '' })
+    wrapper.find('.user-input').simulate('change', { target: { value: 'hello' } })
+    expect(wrapper.state()).toEqual({ userInput: 'hello'})
+    
+  })
 
+  it('should submit a guess when clicked', () => {
+    wrapper.find('.user-input').simulate('change', { target: { value: 'hello' } })
+    expect(wrapper.state()).toEqual({userInput: 'hello'})
+    
     wrapper.find('.user-btn').simulate('click');
-    expect(mockCheckAnswer).toBeCalled();
+    
+    expect(wrapper.state()).toEqual({ userInput: '' })
+  })
+
+  it.skip('should change placeholder text when clicked on/off of', () => {
+    //IS THIS SOMETHING THAT I SHOULD EVEN BE TRYING TO TEST??
+    wrapper.find('.user-input').simulate('change', { target: { value: 'hello' } })
+    expect(wrapper.find('.user-input').text()).toEqual('?')
   })
 });
 
