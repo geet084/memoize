@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './CSS/Main.scss';
 import Answer from './Answer.js'
 import Question from './Question.js'
+import Intro from './Intro.js'
 
 export default class Card extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ export default class Card extends Component {
       numOfGuesses: 0,
       question: null,
       answeredCorrectly: false,
-      showNextQuestion: false
+      showNextQuestion: false,
+      prevAnswer: null
     }
   }
 
@@ -30,7 +32,6 @@ export default class Card extends Component {
       answeredCorrectly: false,
       showNextQuestion: true
     })
-    console.log(answer)
   }
 
   getRandomNumber = (max) => {
@@ -43,7 +44,6 @@ export default class Card extends Component {
 
   checkAnswer = (userGuess) => {
     let { answer } = this.state.question;
-
     let guessIsCorrect = userGuess.toLowerCase() === answer.toLowerCase()
 
     this.setState({
@@ -52,13 +52,26 @@ export default class Card extends Component {
     })
   }
 
-  showPrevResult = (curDef) => {
-    let matchedAnswer = false;
+  getPreviousAnswer = (curDef) => {
+    let prevAnswer = null;
+    
     this.props.answeredQuestions.forEach(answer => {
       if (answer.question.definition === curDef) {
-        matchedAnswer = answer.question;
+        prevAnswer = answer.userGuess;
       } 
     })
+    return prevAnswer;
+  }
+
+  lookForPrevResult = (curDef) => {
+    let matchedAnswer = false;
+    
+    this.props.answeredQuestions.forEach(answer => {
+      if (answer.question.definition === curDef) {
+        matchedAnswer = true;
+      } 
+    })
+
     if (matchedAnswer) return true
     else return false;
   }
@@ -69,40 +82,28 @@ export default class Card extends Component {
   }
 
   render() {
-    if (!this.state.showNextQuestion) {
-      return (
-        <div>
-          <h4
-            onClick={this.nextQuestionHandler}
-            className="begin">
-            Click to begin
-          </h4>
-          <p className="intro">
-            Welcome to Study Time, a web-based
-            flashcard app to practice how well
-            you know your Javascript Array Prototypes!
-          </p>
-        </div>
-      )
-    } else {
+    let { showNextQuestion, numOfGuesses, answeredCorrectly } = this.state;
+
+    if (showNextQuestion) {
       let { definition } = this.state.question;
-      let { numOfGuesses, answeredCorrectly } = this.state;
-      
-      // let previous; TODO: FOR SHOWING QUESTION RESULTS FROM LAST ATTEMPT!!
-      // this.showPrevResult(definition) ? previous = 'yes' : previous = 'no';
       return (
         <div className="card">
           <Question
             numOfGuesses={numOfGuesses}
             definition={definition}
             checkAnswer={this.checkAnswer}
-            showPrevResult={this.showPrevResult(definition)}
+            previouslyAnswered={this.lookForPrevResult(definition)}
+            prevAnswer={this.getPreviousAnswer(definition)}
             showBtnText={this.showBtnText()} />
           <Answer
             nextQuestion={this.nextQuestionHandler}
             answeredCorrectly={answeredCorrectly}
             numOfGuesses={numOfGuesses} />
         </div>
+      )
+    } else {
+      return (
+        <Intro nextQuestionHandler={this.nextQuestionHandler} />
       )
     }
   }

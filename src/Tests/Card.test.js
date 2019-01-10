@@ -32,11 +32,14 @@ describe('Card', () => {
       numOfGuesses: 0,
       question: null,
       answeredCorrectly: false,
-      showNextQuestion: false
+      showNextQuestion: false,
+      prevAnswer: null
     })
   })
 
   it('should match the snapshot with all data passed in correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+    wrapper.setState({ showNextQuestion: true, question: mockSingleQuestion })
     expect(wrapper).toMatchSnapshot();
   })
 
@@ -90,9 +93,9 @@ describe('Card', () => {
 
     wrapper.setProps({ answeredQuestions: mockAnsweredQuestions })
 
-    expect(wrapper.instance().showPrevResult('wrong')).toEqual(false)
+    expect(wrapper.instance().lookForPrevResult('wrong')).toEqual(false)
     
-    expect(wrapper.instance().showPrevResult(previouslyAnswered)).toEqual(true)
+    expect(wrapper.instance().lookForPrevResult(previouslyAnswered)).toEqual(true)
   })
 
   it('should change the text on the answer button when clicked', () => {
@@ -101,8 +104,6 @@ describe('Card', () => {
     wrapper.setState({ numOfGuesses: 1 })
     
     expect(wrapper.instance().showBtnText()).toEqual('Click to try again')
-  })
-  
- 
+  })  
 });
 

@@ -48,18 +48,6 @@
   flex-direction: column;
 }
 
-.no {
-  color: maroon;
-}
-
-.yes {
-  color: lightgreen;
-}
-
-.undefined {
-  display: none;
-}
-
 .user-btn {
   @include inputFormat(290px, 35px, 10px);
   border-radius: 10px;

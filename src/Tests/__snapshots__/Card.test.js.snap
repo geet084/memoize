@@ -17,17 +17,26 @@ exports[`Card should advance to the next question when answer is submitted 1`] =
 `;
 
 exports[`Card should match the snapshot with all data passed in correctly 1`] = `
-<div>
-  <h4
-    className="begin"
-    onClick={[Function]}
-  >
-    Click to begin
-  </h4>
-  <p
-    className="intro"
-  >
-    Welcome to Study Time, a web-based flashcard app to practice how well you know your Javascript Array Prototypes!
-  </p>
+<Intro
+  nextQuestionHandler={[Function]}
+/>
+`;
+
+exports[`Card should match the snapshot with all data passed in correctly 2`] = `
+<div
+  className="card"
+>
+  <Question
+    checkAnswer={[Function]}
+    numOfGuesses={0}
+    prevAnswer={null}
+    previouslyAnswered={false}
+    showBtnText="Click to check answer"
+  />
+  <Answer
+    answeredCorrectly={false}
+    nextQuestion={[Function]}
+    numOfGuesses={0}
+  />
 </div>
 `;

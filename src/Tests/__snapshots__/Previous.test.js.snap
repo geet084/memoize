@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Previous should match the snapshot with all data passed in correctly 1`] = `
+<div>
+  <p
+    className="previous"
+  >
+    Previous result for this question was:
+    <span
+      className="true"
+    >
+       
+      correct
+    </span>
+  </p>
+</div>
+`;
+
+exports[`Previous should match the snapshot with all data passed in correctly 2`] = `
+<div>
+  <p
+    className="previous"
+  >
+    Previous result for this question was:
+    <span
+      className="false"
+    >
+       
+      incorrect
+    </span>
+  </p>
+</div>
+`;

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './CSS/Main.scss';
+import Previous from './Previous.js';
 
 export default class Question extends Component {
   constructor() {
     super();
 
     this.state = {
-      userInput: ''
+      userInput: '',
+      previouslyAnswered: true
     }
   }
 
@@ -19,8 +21,8 @@ export default class Question extends Component {
   }
 
   render() {
-    let { showBtnText, numOfGuesses, definition } = this.props;
-    
+    let { showBtnText, numOfGuesses, definition, previouslyAnswered, prevAnswer } = this.props;
+
     return (
       <div className="question">
         <p className="num-guess">
@@ -28,13 +30,10 @@ export default class Question extends Component {
           <span className="count">  {numOfGuesses}</span>
         </p>
         <p className="definition">{definition}</p>
-        {/* { TODO: FOR SHOWING QUESTION RESULTS FROM LAST ATTEMPT!!
-          isCorrect &&
-          <p className={previous}>
-            Previous result for this question was:
-            <span className={isCorrect.toString()}>{showPrevResult}</span>
-          </p>
-        } */}
+          {
+            previouslyAnswered &&
+            <Previous prevAnswer={prevAnswer} />
+          }
         <input
           type="text"
           className="user-input"

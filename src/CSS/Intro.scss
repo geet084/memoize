@@ -1,0 +1,17 @@
+.begin {
+  padding: 15px 0;
+  width: 425px;
+  margin-left: 50px;
+  color: #d7deee;
+  background-color: #003f6a;
+  opacity: .85;
+  border-radius: 15px;
+  font-size: 2rem;
+
+  &:hover{
+    background-color: #2D4C46;
+    color: #fff;
+    border-radius: 15px;
+    opacity: 1;
+  }
+}

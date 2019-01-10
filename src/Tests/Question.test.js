@@ -27,19 +27,19 @@ describe('Question', () => {
   })
 
   it('should update with what a user types in', () => {
-    expect(wrapper.state()).toEqual({ userInput: '' })
+    expect(wrapper.state()).toEqual({ userInput: '', previouslyAnswered: true })
     wrapper.find('.user-input').simulate('change', { target: { value: 'hello' } })
-    expect(wrapper.state()).toEqual({ userInput: 'hello'})
+    expect(wrapper.state()).toEqual({ userInput: 'hello', previouslyAnswered: true})
     
   })
 
   it('should submit a guess when clicked', () => {
     wrapper.find('.user-input').simulate('change', { target: { value: 'hello' } })
-    expect(wrapper.state()).toEqual({userInput: 'hello'})
+    expect(wrapper.state()).toEqual({userInput: 'hello', previouslyAnswered: true})
     
     wrapper.find('.user-btn').simulate('click');
     
-    expect(wrapper.state()).toEqual({ userInput: '' })
+    expect(wrapper.state()).toEqual({ userInput: '', previouslyAnswered: true })
   })
 
   it.skip('should change placeholder text when clicked on/off of', () => {
